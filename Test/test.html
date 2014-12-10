@@ -1,0 +1,85 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <canvas width="1000" height="700"></canvas>
+        <input type="text" placeholder="rotar" id="rotar">
+        <input type="text" placeholder="escalar X" id="escalarX">
+        <input type="text" placeholder="escalar Y" id="escalarY">
+        <input type="text" placeholder="inclinar X" id="inclinarX">
+        <input type="text" placeholder="inclinar Y" id="inclinarY">
+        <input type="text" placeholder="mover X" id="moverX">
+        <input type="text" placeholder="mover Y" id="moverY">
+        <button id="valores">Ingresa Valores</button>
+        <style>
+            input{
+                    display:block
+            }
+        </style>
+        <script type="text/javascript">
+            var transform=[1,0,0,1,0,0];
+            var rotation;
+            function drawCanvas(){
+                var ctx =document.getElementsByTagName('canvas')[0].getContext('2d');
+                ctx.fillStyle='#FFFFFF';
+                ctx.fillRect(0,0,700,700);
+                ctx.fillStyle = '#B0FFBB';
+                ctx.setTransform(transform[0],transform[1],transform[2],transform[3],transform[4],transform[5])
+                if(rotation!=null){
+                    ctx.rotate(rotation);
+                }
+                ctx.beginPath();
+                ctx.moveTo(100,60);
+                ctx.lineTo(100,360);
+                ctx.lineTo(150,360);
+                ctx.lineTo(150,240);
+                ctx.lineTo(200,360);
+                ctx.lineTo(250,360);
+                ctx.lineTo(150,180);
+                ctx.lineTo(250,60);
+                ctx.lineTo(200,60);
+                ctx.lineTo(150,180);
+                ctx.lineTo(150,60);
+                ctx.lineTo(100,60);
+                ctx.closePath();
+                ctx.fill();
+            }
+               setInterval(drawCanvas,1000);
+            document.getElementById('valores').addEventListener('click',function(){
+                if(document.getElementById('rotar').value!=""){
+                    rotation=parseFloat(document.getElementById('rotar').value);
+                }else{
+                    rotation=null;
+                }
+                if(document.getElementById('escalarX').value!=""){
+                    transform[0]=parseFloat(document.getElementById('escalarX').value);
+                }else{
+                    transform[0]=1;
+                }if(document.getElementById('escalarY').value!=""){
+                    transform[3]=parseFloat(document.getElementById('escalarY').value);
+                }else{
+                    transform[3]=1;
+                }if(document.getElementById('inclinarX').value!=""){
+                    transform[2]=parseFloat(document.getElementById('inclinarX').value);
+                }else{
+                    transform[2]=0;
+                }if(document.getElementById('inclinarY').value!=""){
+                    transform[1]=parseFloat(document.getElementById('inclinarY').value);
+                }else{
+                    transform[1]=0;
+                }if(document.getElementById('moverX').value!=""){
+                    transform[4]=parseFloat(document.getElementById('moverX').value);
+                }else{
+                    transform[4]=0;
+                }if(document.getElementById('moverY').value!=""){
+                    transform[5]=parseFloat(document.getElementById('moverY').value);
+                }else{
+                    transform[5]=0;
+                }
+                console.log(transform);
+                console.log(rotation);
+                });
+        </script>
+    </body>
+</html>
